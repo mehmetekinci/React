@@ -1,0 +1,45 @@
+.App {
+  text-align: center;
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hobby-name {
+  list-style: none;
+}
+
+.hobbies-list {
+  text-align: center;
+  margin: auto;
+  padding: 0px;
+}
+.guarantee-container {
+  width: 30%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+img {
+  width: 100px;
+  height: 80px;
+}
+
+.guarantee-main-container {
+  padding-top: 25px;
+  margin: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.button-add,
+.button-reset {
+  margin: 30px;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  font-size: medium;
+}

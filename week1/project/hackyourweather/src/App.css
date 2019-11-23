@@ -1,0 +1,29 @@
+.App {
+  text-align: center;
+}
+
+.weather-container {
+  border: black solid 1px;
+  width: 350px;
+  margin: 70px auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.weather-title {
+  text-align: left;
+}
+.weather-list {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  text-transform: capitalize;
+}
+.weather-temps-and-coords {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  line-height: 25px;
+}
