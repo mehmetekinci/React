@@ -15,7 +15,7 @@ function DogGallery(props) {
         throw new Error('Faild to fetch');
       } else {
         const data = await response.json();
-        setDogPhotos(data);
+        setDogPhotos([...dogPhotos, data.message]);
         setDataStatus('success');
         setShowDogPhotos(false);
       }
@@ -28,15 +28,14 @@ function DogGallery(props) {
   return (
     <div>
       {showDogPhotos && <h1>Get your first dog by clicking the button!</h1>}
-
-      {dataStatus === 'loading' && <h1>Loading...</h1>}
-      {dataStatus === 'error' && <h1>{errorMessage}</h1>}
-      {dataStatus === 'success' && <DogPhotos url={dogPhotos.message} />}
       <DogButton
         onClickForChanges={() => {
           getDogPhoto();
         }}
       />
+      {dataStatus === 'loading' && <h1>Loading...</h1>}
+      {dataStatus === 'error' && <h1>{errorMessage}</h1>}
+      {dataStatus === 'success' && <DogPhotos urls={dogPhotos} />}
     </div>
   );
 }

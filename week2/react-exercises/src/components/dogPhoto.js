@@ -3,7 +3,9 @@ import React from 'react';
 function DogPhoto(props) {
   return (
     <div>
-      <img src={props.url} alt="photos" />
+      {props.urls.map(url => {
+        return <img src={url} alt="photos" />;
+      })}
     </div>
   );
 }
