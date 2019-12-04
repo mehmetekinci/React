@@ -7,14 +7,14 @@ function CityWeather(props) {
         {props.name}, {props.countryCode}
       </h2>
       <ul className="weather-list">
-        {props.weathers.map(weather => {
+        {props.weathers.map((weather, index) => {
           return (
-            <div>
-              <li>
+            <li key={index}>
+              <div>
                 <b>{weather.main}</b>
-              </li>
-              <li>{weather.description}</li>
-            </div>
+              </div>
+              <div>{weather.description}</div>
+            </li>
           );
         })}
       </ul>

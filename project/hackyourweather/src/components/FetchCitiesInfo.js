@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import CityForm from './CityForm';
 import CityWeather from './CityWeather';
-require('dotenv').config();
+import { config } from 'dotenv';
+config();
 
-function FetchCitiesInfo(props) {
+function FetchCitiesInfo() {
   const [cityInfo, setCityInfo] = useState({});
   const [inputCity, setInputCity] = useState('');
   const [infoStatus, setInfoStatus] = useState('loading');
@@ -26,7 +27,6 @@ function FetchCitiesInfo(props) {
           const data = await response.json();
           setCityInfo(data);
           setInfoStatus('success');
-          console.log(data);
         }
       } catch (error) {
         setInfoStatus('error');
