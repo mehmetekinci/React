@@ -19,17 +19,21 @@ function CityForm(props) {
           handleSubmitChange(e);
         }}
       >
-        <label>
-          <input
-            name="Search"
-            type="text"
-            onChange={entry => {
-              handleCityName(entry);
-            }}
-            value={input}
-          />
-        </label>
-        <input type="submit" value="Search" />
+        <input
+          className="city-input"
+          name="Search"
+          type="text"
+          onChange={entry => {
+            handleCityName(entry);
+          }}
+          value={input}
+        />
+        <input
+          className="city-submit"
+          type="submit"
+          value="Search"
+          size="number"
+        />
       </form>
     </div>
   );

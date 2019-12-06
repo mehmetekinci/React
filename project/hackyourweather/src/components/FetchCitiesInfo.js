@@ -5,16 +5,14 @@ import { config } from 'dotenv';
 config();
 
 function FetchCitiesInfo() {
-  const [cityInfo, setCityInfo] = useState({});
+  const [cities, setCities] = useState([]);
   const [inputCity, setInputCity] = useState('');
-  const [infoStatus, setInfoStatus] = useState('loading');
+  const [infoStatus, setInfoStatus] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
-  const convertKelvinToCelsius = kelvin =>
-    kelvin < 0 ? kelvin : kelvin - 273.15;
 
   useEffect(() => {
     async function getCities() {
+      setInfoStatus('loading');
       try {
         const response = await fetch(
           `http://api.openweathermap.org/data/2.5/weather?q=${inputCity}&APPID=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`,
@@ -25,7 +23,7 @@ function FetchCitiesInfo() {
           );
         } else {
           const data = await response.json();
-          setCityInfo(data);
+          setCities(c => [data, ...c]);
           setInfoStatus('success');
         }
       } catch (error) {
@@ -39,6 +37,11 @@ function FetchCitiesInfo() {
     }
   }, [inputCity]);
 
+  const handleClick = cityId => {
+    const remainCities = cities.filter(city => cityId !== city.id);
+    setCities(remainCities);
+  };
+
   return (
     <div>
       <CityForm
@@ -46,18 +49,17 @@ function FetchCitiesInfo() {
           setInputCity(input);
         }}
       />
+      {infoStatus === 'loading' && <h1>Loading...</h1>}
       {infoStatus === 'error' && <h1>{errorMessage}</h1>}
-      {infoStatus === 'success' && (
+      {cities.map(city => (
         <CityWeather
-          name={cityInfo.name}
-          countryCode={cityInfo.sys.country}
-          weathers={cityInfo.weather}
-          temp_min={convertKelvinToCelsius(cityInfo.main.temp_min).toFixed(1)}
-          temp_max={convertKelvinToCelsius(cityInfo.main.temp_max).toFixed(1)}
-          coordLon={cityInfo.coord.lon}
-          coordLat={cityInfo.coord.lat}
+          onClickChange={cityId => {
+            handleClick(cityId);
+          }}
+          key={city.id}
+          city={city}
         />
-      )}
+      ))}
     </div>
   );
 }
