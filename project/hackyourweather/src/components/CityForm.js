@@ -7,22 +7,14 @@ function CityForm(props) {
     setInput(e.target.value);
   };
 
-  const handleSubmitChange = e => {
-    e.preventDefault();
-    props.onSubmitCityForm(input);
-  };
-
   return (
     <div>
-      <form
-        onSubmit={e => {
-          handleSubmitChange(e);
-        }}
-      >
+      <form>
         <input
           className="city-input"
           name="Search"
           type="text"
+          placeholder="Please enter a city name!"
           onChange={entry => {
             handleCityName(entry);
           }}
@@ -32,7 +24,10 @@ function CityForm(props) {
           className="city-submit"
           type="submit"
           value="Search"
-          size="number"
+          onClick={e => {
+            e.preventDefault();
+            props.onSubmitCityForm(input);
+          }}
         />
       </form>
     </div>

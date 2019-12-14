@@ -1,5 +1,6 @@
 import React from 'react';
-import CancelIcon from '../cancel-circle.png';
+import CloseIcon from '../close-window.png';
+import { Link } from 'react-router-dom';
 
 function CityWeather(props) {
   const { name, sys, weather, main, coord, id } = props.city;
@@ -11,15 +12,17 @@ function CityWeather(props) {
     <div className="weather-container">
       <button
         onClick={() => {
-          props.onClickChange(id);
+          props.onRemoveCity(id);
         }}
         className="icon"
       >
-        <img src={CancelIcon} alt="cancel-icon" />
+        <img className="png-icons" src={CloseIcon} alt="Close-icon" />
       </button>
-      <h2 className="weather-title">
-        {name}, {sys.country}
-      </h2>
+      <Link to={`/${id}`}>
+        <h2 className="weather-title">
+          {name}, {sys.country}
+        </h2>
+      </Link>
       <ul className="weather-list">
         {weather.map((weatherDetails, index) => {
           return (

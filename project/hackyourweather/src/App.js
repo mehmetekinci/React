@@ -1,14 +1,21 @@
 import React from 'react';
 import './App.css';
-
-import FetchCitiesInfo from './components/FetchCitiesInfo';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import WeatherDetails from './pages/WeatherDetails';
 
 function App() {
   return (
-    <div className="App">
-      <h2>Weather</h2>
-      <FetchCitiesInfo />
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/:cityId">
+          <WeatherDetails />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

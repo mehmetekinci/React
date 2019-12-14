@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CityForm from './CityForm';
 import CityWeather from './CityWeather';
-import { config } from 'dotenv';
-config();
 
 function FetchCitiesInfo() {
   const [cities, setCities] = useState([]);
@@ -11,33 +9,34 @@ function FetchCitiesInfo() {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
+    if (!inputCity) return;
+
     async function getCities() {
       setInfoStatus('loading');
       try {
         const response = await fetch(
           `https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&APPID=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`,
         );
+
         if (!response.ok) {
           throw new Error(
             `Oops...Something went wrong. Please check the city name. `,
           );
-        } else {
-          const data = await response.json();
-          setCities(c => [data, ...c]);
-          setInfoStatus('success');
         }
+
+        const data = await response.json();
+        setCities(c => [data, ...c]);
+        setInfoStatus('success');
       } catch (error) {
         setInfoStatus('error');
         setErrorMessage(error.message);
       }
     }
 
-    if (inputCity) {
-      getCities();
-    }
+    getCities();
   }, [inputCity]);
 
-  const handleClick = cityId => {
+  const handleRemoveCity = cityId => {
     const remainCities = cities.filter(city => cityId !== city.id);
     setCities(remainCities);
   };
@@ -53,8 +52,8 @@ function FetchCitiesInfo() {
       {infoStatus === 'error' && <h1>{errorMessage}</h1>}
       {cities.map(city => (
         <CityWeather
-          onClickChange={cityId => {
-            handleClick(cityId);
+          onRemoveCity={cityId => {
+            handleRemoveCity(cityId);
           }}
           key={city.id}
           city={city}
